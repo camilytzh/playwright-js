@@ -5,17 +5,11 @@ test('successful register with valid data', async ({ page })=> {
   const registerPage = new RegisterPage(page);
   
   await registerPage.open();
-  await registerPage.fillRegisterForm({
-    firstName: 'John',
-    lastName: 'Doe',
+  await registerPage.fillCommonFields();
+  await registerPage.fillVariableFields({
     dateOfBirth: '2000-10-05',
-    street: '15th Avenue',
-    postalCode: '2020',
-    city: 'Bensalem',
-    state: 'Pennsylvania',
-    country: 'US',
-    phone: '0928586950',
-    password: 'BreakingBad01!'
+    email: registerPage._generateUniqueEmail(),
+    password: 'StrongPassword01!'
   });
   await registerPage.clickOnRegister();
   
