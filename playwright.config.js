@@ -1,9 +1,10 @@
 const { defineConfig, devices } = require('@playwright/test');
 
-module.exports = defineConfig({
+export default defineConfig({
   testDir: './tests',
   retries: 1,
   use: {
+    baseURL: 'https://practicesoftwaretesting.com/',
     headless: true,
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',       

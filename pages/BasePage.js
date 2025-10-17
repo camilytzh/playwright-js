@@ -3,9 +3,8 @@ class BasePage {
     this.page = page;
   }
 
-  async navigateTo(url) {
-    await this.page.goto(url);
+  async navigateTo(path = '/') {
+    await this.page.goto(path);
   }
 }
-
 module.exports = { BasePage };
