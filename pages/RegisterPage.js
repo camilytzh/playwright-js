@@ -16,6 +16,7 @@ class RegisterPage extends BasePage{
         this.email = page.locator('#email');
         this.password = page.locator('#password');
         this.registerBtn = page.locator('button[type="submit"]');
+        this.ageErrorMessage = page.locator('.help-block');
     }
 
     async open() {
