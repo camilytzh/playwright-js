@@ -53,5 +53,9 @@ class RegisterPage extends BasePage{
   return `${prefix}_${Date.now()}@example.com`;
 }
 
+_generateRandomPassword(prefix = 'Test') {
+  return `${prefix}_${Date.now()}!`;
+}
+
 }
 module.exports = { RegisterPage };
