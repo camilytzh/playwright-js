@@ -32,3 +32,15 @@ test('unsucessful register with age under 18', async ({page}) => {
   await expect(registerPage.ageErrorMessage).toHaveText('Customer must be 18 years old.', 
     { timeout: 2000 });
 });
+
+test.skip('unsucessful register with age over 75', async ({page}) => {
+  await registerPage.fillVariableFields({
+    dateOfBirth: '1935-01-21',
+    email: registerPage._generateUniqueEmail(),
+    password: 'StrongPassword03!'
+  });
+  await registerPage.clickOnRegister();
+
+  await expect(registerPage.ageErrorMessage).toHaveText('Customer must be younger than 75 years old.', 
+    { timeout: 2000 });
+});
