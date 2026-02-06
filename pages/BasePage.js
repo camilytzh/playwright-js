@@ -7,4 +7,4 @@ class BasePage {
     await this.page.goto(path);
   }
 }
-module.exports = { BasePage };
+export { BasePage };

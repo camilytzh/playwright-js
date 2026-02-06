@@ -1,4 +1,4 @@
-const { BasePage } = require("./BasePage");
+import { BasePage } from "./BasePage";
 
 class HomePage extends BasePage{
     constructor(page){
@@ -9,4 +9,4 @@ class HomePage extends BasePage{
     await this.navigateTo(this.path);
   }
 }
-module.exports = { HomePage };
+export { HomePage };

@@ -1,4 +1,4 @@
-const { BasePage } = require("./BasePage");
+import { BasePage } from "./BasePage";
 
 class RegisterPage extends BasePage{
     constructor(page){
@@ -59,4 +59,4 @@ _generateRandomPassword(prefix = 'Test') {
 }
 
 }
-module.exports = { RegisterPage };
+export { RegisterPage };

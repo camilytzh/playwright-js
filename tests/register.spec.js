@@ -1,5 +1,5 @@
-const { test, expect } = require('@playwright/test');
-const { RegisterPage } = require('../pages/RegisterPage');
+import { test, expect } from '@playwright/test';
+import { RegisterPage } from '../pages/RegisterPage';
 
 let registerPage;
 
