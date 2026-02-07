@@ -1,26 +1,26 @@
 import { BasePage } from "./BasePage";
 
 class RegisterPage extends BasePage{
-    constructor(page){
-        super(page);
-        this.path = '/auth/register';
-        this.firstName = page.locator('#first_name');
-        this.lastName = page.locator('#last_name');
-        this.dateOfBirth = page.locator('#dob');
-        this.street = page.locator('#street');
-        this.postalCode = page.locator('#postal_code');
-        this.city = page.locator('#city');
-        this.state = page.locator('#state');
-        this.country = page.locator('#country');
-        this.phone = page.locator('#phone');
-        this.email = page.locator('#email');
-        this.password = page.locator('#password');
-        this.registerBtn = page.locator('button[type="submit"]');
-        this.registerErrorMessage = page.locator('.help-block');
-        this.invalidEmail = page.locator('div[data-test="email-error"]');
-    }
+  constructor(page){
+    super(page);
+    this.path = '/auth/register';
+    this.firstName = page.locator('#first_name');
+    this.lastName = page.locator('#last_name');
+    this.dateOfBirth = page.locator('#dob');
+    this.street = page.locator('#street');
+    this.postalCode = page.locator('#postal_code');
+    this.city = page.locator('#city');
+    this.state = page.locator('#state');
+    this.country = page.locator('#country');
+    this.phone = page.locator('#phone');
+    this.email = page.locator('#email');
+    this.password = page.locator('#password');
+    this.registerBtn = page.locator('button[type="submit"]');
+    this.registerErrorMessage = page.locator('.help-block');
+    this.invalidEmail = page.locator('div[data-test="email-error"]');
+  }
 
-    async open() {
+  async open() {
     await this.navigateTo(this.path);
   }
 
@@ -33,6 +33,7 @@ class RegisterPage extends BasePage{
     await this.state.fill('Pennsylvania');
     await this.country.selectOption('US');
     await this.phone.fill('0999999999');
+    await this.password.fill(this.generateRandomPassword());
   }
 
   async fillVariableFields({ dateOfBirth, email, password } = {}) {
@@ -50,13 +51,13 @@ class RegisterPage extends BasePage{
     await this.registerBtn.click();
   }
 
-  _generateUniqueEmail(prefix = 'user') {
-  return `${prefix}_${Date.now()}@example.com`;
-}
+  generateUniqueEmail(prefix = 'user') {
+    return `user_${crypto.randomUUID()}@example.com`;
+  }
 
-_generateRandomPassword(prefix = 'Test') {
-  return `${prefix}_${Date.now()}!`;
-}
+  generateRandomPassword(prefix = 'Test') {
+    return `${prefix}_${Date.now()}!`;
+  }
 
 }
 export { RegisterPage };

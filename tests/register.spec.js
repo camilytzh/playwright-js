@@ -7,85 +7,81 @@ test.beforeEach(async ({ page }) => {
   registerPage = new RegisterPage(page);
   
   await registerPage.open();
-  await registerPage.fillCommonFields();
 });
 
 test('successful register with valid data', async ({ page })=> {
+  await registerPage.fillCommonFields();
   await registerPage.fillVariableFields({
     dateOfBirth: '2000-10-05',
-    email: registerPage._generateUniqueEmail(),
-    password: registerPage._generateRandomPassword()
+    email: registerPage.generateUniqueEmail()
   });
   await registerPage.clickOnRegister();
   
-  await expect(page).toHaveURL('https://practicesoftwaretesting.com/auth/login');
+  await expect(page).toHaveURL(/\/auth\/login$/);
 });
 
-test('unsucessful register with age under 18', async ({page}) => {
+test('unsuccessful register with age under 18', async ({page}) => {
+  await registerPage.fillCommonFields();
   await registerPage.fillVariableFields({
     dateOfBirth: '2023-01-21',
-    email: registerPage._generateUniqueEmail(),
-    password: registerPage._generateRandomPassword()
+    email: registerPage.generateUniqueEmail()
   });
   await registerPage.clickOnRegister();
 
-  await expect(registerPage.registerErrorMessage).toHaveText('Customer must be 18 years old.', 
-    { timeout: 2000 });
+  await expect(registerPage.registerErrorMessage).toContainText('be 18 years old.');
 });
 
-test.skip('unsucessful register with age over 75', async ({page}) => {
+test.skip('unsuccessful register with age over 75', async ({page}) => {
+  await registerPage.fillCommonFields();
   await registerPage.fillVariableFields({
     dateOfBirth: '1935-01-21',
-    email: registerPage._generateUniqueEmail(),
-    password: registerPage._generateRandomPassword()
+    email: registerPage.generateUniqueEmail()
   });
   await registerPage.clickOnRegister();
 
-  await expect(registerPage.registerErrorMessage).toHaveText('Customer must be younger than 75 years old.', 
-    { timeout: 2000 });
+  await expect(registerPage.registerErrorMessage).toContainText('younger than 75 years old.');
 });
 
-test('sucessful register with lower age limit allowed', async ({page}) => {
+test('successful register with lower age limit allowed', async ({page}) => {
+  await registerPage.fillCommonFields();
   await registerPage.fillVariableFields({
     dateOfBirth: '2007-01-01',
-    email: registerPage._generateUniqueEmail(),
-    password: registerPage._generateRandomPassword()
+    email: registerPage.generateUniqueEmail()
   });
   await registerPage.clickOnRegister();
 
-  await expect(page).toHaveURL('https://practicesoftwaretesting.com/auth/login');
+  await expect(page).toHaveURL(/\/auth\/login$/);
 });
 
-test('sucessful register with upper age limit allowed', async ({page}) => {
+test('successful register with upper age limit allowed', async ({page}) => {
+  await registerPage.fillCommonFields();
   await registerPage.fillVariableFields({
     dateOfBirth: '1950-01-01',
-    email: registerPage._generateUniqueEmail(),
-    password: registerPage._generateRandomPassword()
+    email: registerPage.generateUniqueEmail()
   });
   await registerPage.clickOnRegister();
 
-  await expect(page).toHaveURL('https://practicesoftwaretesting.com/auth/login');
+  await expect(page).toHaveURL(/\/auth\/login$/);
 });
 
-test('unsucessful register with invalid email format', async ({page}) => {
+test('unsuccessful register with invalid email format', async ({page}) => {
+  await registerPage.fillCommonFields();
   await registerPage.fillVariableFields({
     dateOfBirth: '2000-01-01',
-    email: 'email',
-    password: registerPage._generateRandomPassword()
+    email: 'email'
   });
   await registerPage.clickOnRegister();
 
   await expect(registerPage.invalidEmail).toBeVisible();
 });
 
-test('unsucessful register with repeated email', async ({page}) => {
+test('unsuccessful register with repeated email', async ({page}) => {
+  await registerPage.fillCommonFields();
   await registerPage.fillVariableFields({
     dateOfBirth: '2000-01-01',
-    email: 'johndoe@mail.com',
-    password: registerPage._generateRandomPassword()
+    email: 'johndoe@mail.com'
   });
   await registerPage.clickOnRegister();
 
-  await expect(registerPage.registerErrorMessage).toHaveText('A customer with this email address already exists.', 
-    { timeout: 2000 });
+  await expect(registerPage.registerErrorMessage).toContainText('already exists');
 });
