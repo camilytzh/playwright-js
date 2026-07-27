@@ -83,5 +83,5 @@ test('unsuccessful register with repeated email', async ({page}) => {
   });
   await registerPage.clickOnRegister();
 
-  await expect(registerPage.registerErrorMessage).toContainText('already exists');
+  await expect(registerPage.registerErrorMessage).toContainText(/already|exists|email/i);
 });

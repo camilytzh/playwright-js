@@ -7,8 +7,9 @@ class RegisterPage extends BasePage{
     this.firstName = page.locator('#first_name');
     this.lastName = page.locator('#last_name');
     this.dateOfBirth = page.locator('#dob');
-    this.street = page.locator('#street');
     this.postalCode = page.locator('#postal_code');
+    this.houseNumber = page.locator('#house_number');
+    this.street = page.locator('#street');
     this.city = page.locator('#city');
     this.state = page.locator('#state');
     this.country = page.locator('#country');
@@ -17,7 +18,7 @@ class RegisterPage extends BasePage{
     this.password = page.locator('#password');
     this.registerBtn = page.locator('button[type="submit"]');
     this.registerErrorMessage = page.locator('.help-block');
-    this.invalidEmail = page.locator('div[data-test="email-error"]');
+    this.invalidEmail = page.locator('#email-error');
   }
 
   async open() {
@@ -27,8 +28,9 @@ class RegisterPage extends BasePage{
   async fillCommonFields(){
     await this.firstName.fill('User');
     await this.lastName.fill('LastNameUser');
-    await this.street.fill('15th Avenue');
     await this.postalCode.fill('2020');
+    await this.houseNumber.fill('15');
+    await this.street.fill('15th Avenue');
     await this.city.fill('Bensalem');
     await this.state.fill('Pennsylvania');
     await this.country.selectOption('US');
